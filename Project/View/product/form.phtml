@@ -1,0 +1,97 @@
+<?php 
+$product = $this->getProduct();
+$statusOptions = $product->getStatusOptions();
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <title>Add Product</title>
+    <style>
+    .container {
+        padding: 10px;
+
+    }
+    h1 {
+        background-color: black;
+        color: wheat;
+        text-align: center;
+        border-radius: 5px;
+    }
+
+    hr {
+        background-color: black;
+    }
+
+    .radio {
+        margin: 5px;
+    }
+    </style>
+</head>
+
+<body>
+    
+    <div class="container mt-5">
+        <h1 class="mt-2">Product Details Form</h1>
+        <div class="personal data mt-3 ">
+           
+            <form action="?c=product&a=save&id=<?php echo $product->productId;?>" method="post">
+                <div class="row">
+
+                    <div class="form-group col-sm-6">
+                        <label for="product">Product name</label>
+                        <input type="text" value="<?php echo $product->name; ?>" class="form-control" name="Product[name]" required>
+                    </div>
+                    <div class="form-group col-sm-6">
+                        <label for="manufacturer">Manufacturer</label>
+                        <input type="text" value="<?php echo $product->manufacturer;?>" class="form-control" name="Product[manufacturer]" required>
+                    </div>
+
+                </div>
+                <div class="row">
+
+                    <div class="form-group col-sm-6">
+                        <label for="pkd">PKD</label>
+                        <input type="date" value="<?php echo $product->pkd; ?>" class="form-control" name="Product[pkd]" required>
+                    </div>
+                    <div class="form-group col-sm-6">
+                        <label for="date">Expiry Date</label>
+                        <input type="date" value="<?php echo $product->expiryDate;?>" name="Product[expiryDate]" class="form-control" required>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="form-group col-sm-6">
+                        <label for="email">Quantity</label>
+                        <input type="number" value="<?php echo $product->quantity; ?>" class="form-control" name="Product[quantity]" required>
+                    </div>
+                    <div class="form-group col-sm-6">
+                    <label for="Product[status]">Status</label>
+                    <select name="Product[status]" id="" class="form-control" >
+                           <?php foreach($statusOptions as $key => $option){?>
+                           <option value="<?php echo $option ?>" <?php  if ($product->status == $option){ echo "selected"; } ?> > <?php echo $option; ?></option>
+                           <?php } ?>
+                    </select>
+                </div>
+
+                </div>
+                    <label for="description">Description</label>
+                    <div class="form-group">
+                        <textarea name="Product[description]" rows="4" cols="50" required><?php echo $product->description; ?></textarea>
+                </div>
+               
+
+                <button type="submit" name="submit" class="btn btn-primary mt-1">Save</button>
+                <a href="?c=product&a=grid" name="submit" class="btn btn-success mt-1">Return</a>
+            </form>
+        </div>
+       
+
+</body>
+
+</html>
