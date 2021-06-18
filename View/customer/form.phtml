@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title>Add Customer</title>
+    <style>
+    .container {
+        padding: 10px;
+    }
+
+    h1 {
+        background-color: black;
+        color: wheat;
+        text-align: center;
+        border-radius: 5px;
+    }
+
+    hr {
+        background-color: black;
+    }
+
+    .radio {
+        margin: 5px;
+    }
+
+    #mydata {
+        display: none;
+    }
+    </style>
+</head>
+
+<body>
+<?php 
+    $customer = $this->getCustomer();
+    $billingAddress = $this->getBillingAddress();
+    $shippingAddress = $this->getShippingAddress();
+
+    // echo $shippingAddress->homeName;
+
+   ?>
+
+    <div class="container mt-5">
+        <div class="personal data mt-3 ">
+        <h1>Customer Form</h1>
+            <h3>Personal information </h3>
+            <form action="?c=Customer&a=save&id=<?php echo $customer->customerId; ?>" method="post">
+               
+                <div class="row">
+                    <div class="form-group col-sm-6">
+                        <label for="fname">First name</label>
+                        <input type="text" value="<?php echo  $customer->firstName; ?>" class="form-control"
+                            name="Customer[firstName]" required>
+                    </div>
+                    <div class="form-group col-sm-6">
+                        <label for="lname">Last name</label>
+                        <input type="text" class="form-control" value="<?php echo  $customer->lastName; ?>"
+                            name="Customer[lastName]" required>
+                    </div>
+
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" class="form-control" value="<?php echo  $customer->email; ?>" name="Customer[email]"
+                        required>
+                </div>
+                <div class="row">
+
+                    <div class="form-group col-sm-6">
+                        <label for="mno">Mobile No</label>
+                        <input type="text" class="form-control" value="<?php echo  $customer->contact; ?>"
+                            name="Customer[contact]" required>
+                    </div>
+                    <div class="form-group col-sm-6">
+                        <label for="dob">Date of Birth</label>
+                        <input type="date" name="Customer[dateOfBirth]dob" value="<?php echo  $customer->dateOfBirth; ?>"
+                            class="form-control" required>
+                    </div>
+
+                </div>
+                <div class="form-group col-sm-6 gender">
+
+                    <label for="gender"> Gender </label>
+                    <div>
+
+                        Male <input type="radio" name="Customer[gender]" class="radio" value="male">
+                        Female <input type="radio" name="Customer[gender]" class="radio" value="female">
+                        Other <input type="radio" name="Customer[gender]" class="radio" value="other">
+                    </div>
+                </div>
+        </div>
+
+        <hr>
+        <div id="mydata">
+        
+            <div class="Address data mt-4 ">
+                <h3>Shipping Address </h3>
+                    <div class="row">
+
+                        <div class="form-group col-sm-6">
+                            <label for="Hname">House name</label>
+                            <input type="text" class="form-control" value="<?php echo $shippingAddress->homeName; ?>"
+                                name="shipping[homeName]">
+                        </div>
+                        <div class="form-group col-sm-6">
+                            <label for="street">Street Address</label>
+                            <input type="text" class="form-control" value="<?php echo  $shippingAddress->street; ?>"
+                                name="shipping[street]">
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+
+                        <div class="form-group col-sm-6">
+                            <label for="land">Landmark</label>
+                            <input type="text" class="form-control" value="<?php echo  $shippingAddress->landmark; ?>"
+                                name="shipping[landmark]">
+                        </div>
+                        <div class="form-group col-sm-6">
+                            <label for="city">City</label>
+                            <input type="text" name="shipping[city]" value="<?php echo  $shippingAddress->city; ?>"
+                                class="form-control">
+                        </div>
+
+                    </div>
+                    <div class="row">
+
+                        <div class="form-group col-sm-6">
+                            <label for="pin">Pin code</label>
+                            <input type="number" class="form-control" value="<?php echo  $shippingAddress->code; ?>"
+                                name="shipping[code]">
+                        </div>
+                        <div class="form-group col-sm-6">
+                            <label for="state">State</label>
+                            <input type="text" name="shipping[state]" value="<?php echo  $shippingAddress->state; ?>"
+                                class="form-control">
+                        </div>
+
+                    </div>
+
+            </div>
+
+            <div class="Address data mt-4 ">
+                <h3>Billing Address</h3>
+                <h6>optional*</h6>
+                    <div class="row">
+
+                        <div class="form-group col-sm-6">
+                            <label for="billing[homeName]">House name</label>
+                            <input type="text" class="form-control" name="billing[homeName]" value="<?php echo $billingAddress->homeName ;?>">
+                        </div>
+                        <div class="form-group col-sm-6">
+                            <label for="billing[street]">Street Address</label>
+                            <input type="text" class="form-control" name="billing[street]" value="<?php echo $billingAddress->street;?>">
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+
+                        <div class="form-group col-sm-6">
+                            <label for="billing[landmark]">Landmark</label>
+                            <input type="text" class="form-control" name="billing[landmark]" value="<?php echo $billingAddress->landmark;?>">
+                        </div>
+                        <div class="form-group col-sm-6">
+                            <label for="city">City</label>
+                            <input type="text" name="billing[city]" class="form-control" value="<?php echo $billingAddress->city ;?>">
+                        </div>
+
+                    </div>
+                    <div class="row">
+
+                        <div class="form-group col-sm-6">
+                            <label for="pin">Pin code</label>
+                            <input type="number" class="form-control" name="billing[code]" value="<?php echo $billingAddress->code ;?>">
+                        </div>
+                        <div class="form-group col-sm-6">
+                            <label for="state">State</label>
+                            <input type="text" name="billing[state]" class="form-control" value="<?php echo $billingAddress->state ;?>">
+                        </div>
+
+                    </div>
+
+            </div>
+
+       
+        </div>
+        <button type="submit" name="submit" id="submit" class="btn btn-primary mt-1">Save</button>
+        <?php if( $customer->customerId != null){ ?>
+        <button type="button" id="button" class="btn btn-primary mt-1">Address</button>
+        <?php } ?>
+        <a href="?c=customer&a=grid" name="submit" class="btn btn-success mt-1">Return</a>
+    </form>
+
+
+    </div>
+
+</body>
+
+</html>
+<script>
+$(document).ready(function() {
+    $("#button").click(function() {
+        $("#mydata").css("display", "block");
+       
+    });
+});
+</script>
