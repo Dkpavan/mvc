@@ -1,0 +1,117 @@
+<?php
+   $categorys = $this->getCategorys();
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <title>Category</title>
+    <style>
+    body {
+
+
+        height: 100vh;
+        width: 100vw;
+
+    }
+
+    h3 {
+        background-color: black;
+        color: wheat;
+        text-align: center;
+        border-radius: 5px;
+    }
+    </style>
+</head>
+
+<body>
+    <div class="container mt-5">
+        <h3 class="title mt-2">Category Details</h3>
+        <a href="index.php?c=Category&a=add"><button type="submit" name="submit"
+                class="btn btn-primary mt-1">Add</button></a>
+        <div class="mt-3">
+
+            <table class="table table-hover-table-striped table-bordered mt-2 ">
+
+                <thead>
+
+                    <tr>
+                        <th>Customer Id</th>
+                        <th>Category Name</th>
+                        <th>Parent Id</th>
+                        <th>PathIds</th>
+                        <th>Status</th>
+                        <th>Description</th>
+                        <th>Entry date</th>
+                        <th>Action</th>
+                    </tr>
+
+                </thead>
+                <tbody>
+
+                    <?php  foreach($categorys as $category){ ?>
+                    <tr>
+                        <td><?php echo $category->categoryId; ?></td>
+                        <td><?php echo $category->categoryName; ?></td>
+                        <td><?php echo $category->parentId; ?></td>
+                        <td><?php echo $category->pathIds; ?></td>
+                        <td><?php echo $category->status; ?></td>
+                        <td><?php echo $category->descriprtion; ?></td>
+                        <td><?php echo $category->createdDate; ?></td>
+                        <td><a href="?c=Category&a=edit&id=<?php echo $category->categoryId; ?>&name=<?php echo  $category->categoryName ?>"
+                                class="btn btn-primary">Edit</a>
+                            <button type="button" class="btn btn-danger" data-toggle="modal"data-target="#id<?php echo $category->categoryId; ?>">
+                            Delete</button>
+                        </td>
+
+                        <div class="modal fade" id="id<?php echo $category->categoryId; ?>" tabindex="-1" role="dialog"
+                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Do you really want to delete detailse of categoryId :- <?php echo $category->categoryId; ?>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <a href="?c=Category&a=delete&id=<?php echo $category->categoryId; ?>&delete=all"><button
+                                                type="submit" name="all" class="btn btn-warning">Delete All</button></a>
+                                        <a href="?c=Category&a=delete&id=<?php echo $category->categoryId; ?>&delete=one"><button
+                                                type="submit" name="one" class="btn btn-danger">Delete One</button></a>
+                                        <button type="button" class="btn btn-secondary"
+                                            data-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </tr>
+                    <?php }?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    </div>
+
+</body>
+
+</html>
